@@ -15,7 +15,7 @@ import com.formacion.springboot.app.productos.models.entity.Producto;
 import com.formacion.springboot.app.productos.models.service.ProductoService;
 
 @RestController
-@RequestMapping(value = "/producto")
+@RequestMapping
 public class ProductoController {
 
 	protected static final String PRODUCTO_CONTROLLER = "/producto";
@@ -52,7 +52,7 @@ public class ProductoController {
 //		}
 
 //		try {
-//			Thread.sleep(5000l);
+//			Thread.sleep(3000l);
 //		} catch (final InterruptedException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

@@ -15,7 +15,7 @@ import com.formacion.springboot.app.item.models.service.ItemService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
-@RequestMapping(value = "/item")
+@RequestMapping
 public class ItemController {
 
 	protected static final String ITEM_CONTROLLER = "/item";

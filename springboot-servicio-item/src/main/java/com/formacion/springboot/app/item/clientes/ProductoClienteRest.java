@@ -12,10 +12,10 @@ import com.formacion.springboot.app.item.models.Producto;
 @FeignClient(name = "servicio-productos")
 public interface ProductoClienteRest {
 
-	@GetMapping("/producto/listar")
+	@GetMapping("/listar")
 	public List<Producto> listar();
 
-	@GetMapping("/producto/ver" + "/{id}")
+	@GetMapping("/ver" + "/{id}")
 	public Producto detalle(@PathVariable Long id);
 
 }
