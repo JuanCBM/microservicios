@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,12 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @RequestMapping
+@RefreshScope
 public class ItemController {
 
 	private static Logger log = LoggerFactory.getLogger(ItemController.class);
+	@Autowired
+	private Environment env;
 
 	protected static final String ITEM_CONTROLLER = "/item";
 	protected static final String LISTAR_ITEM = "/listar";
@@ -51,6 +56,15 @@ public class ItemController {
 		final Map<String, String> json = new HashMap<>();
 		json.put("texto", texto);
 		json.put("puerto", puerto);
+
+		if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
+			json.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));
+			json.put("autor.email", env.getProperty("configuracion.autor.email"));
+
+		}
+		if (env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("prod")) {
+
+		}
 
 		return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
 	}
