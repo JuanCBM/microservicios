@@ -27,4 +27,26 @@ public class ProductoServiceImpl implements ProductoService {
 		return productoDao.findById(id).orElse(null);
 	}
 
+	@Override
+	@Transactional
+	public Producto save(Producto producto) {
+		return productoDao.save(producto);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		productoDao.deleteById(id);
+
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		final Producto productoDb = findById(id);
+		productoDb.setNombre(producto.getNombre());
+		productoDb.setPrecio(producto.getPrecio());
+
+		return productoDao.save(productoDb);
+	}
+
 }

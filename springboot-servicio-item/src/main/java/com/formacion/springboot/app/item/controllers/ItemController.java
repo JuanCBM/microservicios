@@ -13,9 +13,14 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formacion.springboot.app.item.models.Item;
@@ -36,12 +41,15 @@ public class ItemController {
 	protected static final String LISTAR_ITEM = "/listar";
 	protected static final String VER_ITEM = "/ver";
 	protected static final String CONFIG = "/obtener-config";
+	protected static final String CREAR_PRODUCTO = "/crear";
+	protected static final String EDITAR_PRODUCTO = "/editar";
+	protected static final String ELIMINAR_PRODUCTO = "eliminar";
 
 	@Value("${configuracion.texto}")
 	private String texto;
 
 	@Autowired
-	@Qualifier("serviceRest")
+	@Qualifier("serviceRest") // serviceFeign || serviceRest
 	private ItemService itemService;
 
 	@GetMapping(LISTAR_ITEM)
@@ -85,6 +93,24 @@ public class ItemController {
 
 		return item;
 
+	}
+
+	@PostMapping(CREAR_PRODUCTO)
+	@ResponseStatus(HttpStatus.CREATED)
+	public Producto crear(@RequestBody Producto producto) {
+		return itemService.save(producto);
+	}
+
+	@PutMapping(EDITAR_PRODUCTO + "/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Producto editar(@RequestBody Producto producto, @PathVariable Long id) {
+		return itemService.update(producto, id);
+	}
+
+	@DeleteMapping(ELIMINAR_PRODUCTO + "/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminar(@PathVariable Long id) {
+		itemService.delete(id);
 	}
 
 }
