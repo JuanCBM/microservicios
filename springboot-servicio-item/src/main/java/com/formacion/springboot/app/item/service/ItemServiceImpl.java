@@ -1,4 +1,4 @@
-package com.formacion.springboot.app.item.models.service;
+package com.formacion.springboot.app.item.service;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.formacion.springboot.app.commons.models.entity.Producto;
 import com.formacion.springboot.app.item.models.Item;
-import com.formacion.springboot.app.item.models.Producto;
 
 @Service("serviceRest")
 public class ItemServiceImpl implements ItemService {

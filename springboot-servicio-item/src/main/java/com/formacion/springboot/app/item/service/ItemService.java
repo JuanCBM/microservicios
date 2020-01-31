@@ -1,9 +1,9 @@
-package com.formacion.springboot.app.item.models.service;
+package com.formacion.springboot.app.item.service;
 
 import java.util.List;
 
+import com.formacion.springboot.app.commons.models.entity.Producto;
 import com.formacion.springboot.app.item.models.Item;
-import com.formacion.springboot.app.item.models.Producto;
 
 public interface ItemService {
 

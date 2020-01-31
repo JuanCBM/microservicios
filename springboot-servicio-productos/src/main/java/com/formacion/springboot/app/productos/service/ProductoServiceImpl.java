@@ -1,4 +1,4 @@
-package com.formacion.springboot.app.productos.models.service;
+package com.formacion.springboot.app.productos.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.formacion.springboot.app.commons.models.entity.Producto;
 import com.formacion.springboot.app.productos.models.dao.ProductoDao;
-import com.formacion.springboot.app.productos.models.entity.Producto;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {

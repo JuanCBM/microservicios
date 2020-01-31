@@ -1,5 +1,7 @@
 package com.formacion.springboot.app.item.models;
 
+import com.formacion.springboot.app.commons.models.entity.Producto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

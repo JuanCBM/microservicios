@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.formacion.springboot.app.item.models.Producto;
+import com.formacion.springboot.app.commons.models.entity.Producto;
 
 // Sigue estando acoplado al usar Feign, (name = "servicio-productos", url = "localhost:8001")
 @FeignClient(name = "servicio-productos")

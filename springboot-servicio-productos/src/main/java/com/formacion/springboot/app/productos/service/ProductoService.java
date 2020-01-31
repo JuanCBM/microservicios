@@ -1,8 +1,8 @@
-package com.formacion.springboot.app.productos.models.service;
+package com.formacion.springboot.app.productos.service;
 
 import java.util.List;
 
-import com.formacion.springboot.app.productos.models.entity.Producto;
+import com.formacion.springboot.app.commons.models.entity.Producto;
 
 public interface ProductoService {
 	public List<Producto> findAll();

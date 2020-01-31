@@ -1,4 +1,4 @@
-package com.formacion.springboot.app.item.models.service;
+package com.formacion.springboot.app.item.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.formacion.springboot.app.commons.models.entity.Producto;
 import com.formacion.springboot.app.item.clientes.ProductoClienteRest;
 import com.formacion.springboot.app.item.models.Item;
-import com.formacion.springboot.app.item.models.Producto;
 
 @Service("serviceFeign")
 // @Primary
