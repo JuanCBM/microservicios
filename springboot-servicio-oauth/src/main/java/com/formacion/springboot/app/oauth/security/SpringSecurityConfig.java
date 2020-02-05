@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-public class SpringSecutiryConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
