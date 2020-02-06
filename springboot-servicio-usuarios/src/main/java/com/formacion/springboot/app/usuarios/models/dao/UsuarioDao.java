@@ -16,7 +16,7 @@ public interface UsuarioDao extends CrudRepository<Usuario, Long> {
 
 	// 'Usuario' es el nombre de la clase, y 'username' el nombre del atributo de la
 	// entity, no de la tabla y columna de la BBDD.
-	@Query("SELECT u FROM Usuario u WHERE u.username=?1")
+	@Query("select u from Usuario u where u.username=?1")
 	public Usuario obtenerPorUsername(String username);
 
 	// Si queremos hacer la query nativa utilizamos la notación siguiente
