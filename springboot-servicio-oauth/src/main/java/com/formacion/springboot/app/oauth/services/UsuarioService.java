@@ -18,7 +18,7 @@ import com.formacion.springboot.app.commons.usuarios.models.entity.Usuario;
 import com.formacion.springboot.app.oauth.clients.UsuarioFeignClient;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 	private Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 	@Autowired
@@ -39,6 +39,12 @@ public class UsuarioService implements UserDetailsService {
 		log.info("Usuario autenticado: " + username);
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true,
 				authorities);
+	}
+
+	@Override
+	public Usuario findByUserName(String username) {
+
+		return usuarioFeignClient.findByUsername(username);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.formacion.springboot.app.oauth.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -19,6 +22,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableAuthorizationServer
 // Clase de configuración con métodos para configurar el uso de JWT.
 public class AurhorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	
+	@Autowired
+	private InfoAdicionalToken infoAdicionalToken;
 
 	// Inyectamos los dos Beans que creamos en Spring SecurityConfig
 	@Autowired
@@ -68,9 +74,19 @@ public class AurhorizationServerConfig extends AuthorizationServerConfigurerAdap
 		 * relacionado con el endpoint de oauth2 que se encarga de generar el token POST
 		 * a /oauth/token con param: user, pass, grand-type, client_id y generará token.
 		 */
+		
+		/*
+		 * Con el token Enhancer Chain modificamos los datos que salen en los claims del token para añadir la información adicional
+		 * que hemos obtenido en infoAdicionalToken
+		 */
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdicionalToken, accessTokenConverter()));
+		
+		
 		endpoints.authenticationManager(authenticationManager)
 			.tokenStore(tokenStore())
-			.accessTokenConverter(accessTokenConverter());
+			.accessTokenConverter(accessTokenConverter())
+			.tokenEnhancer(tokenEnhancerChain);
 	}
 
 	// Configuramos para que utilicen JWT.
