@@ -50,13 +50,12 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
-	public Usuario update(Usuario usuario, Long id) {
-		return client.update(usuario, id);
+	public Usuario findByUsername(String username) {
+		return client.findByUsername(username);
 	}
 
 	@Override
-	public Usuario findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario update(Usuario usuario, Long id) {
+		return client.update(usuario, id);
 	}
 }
