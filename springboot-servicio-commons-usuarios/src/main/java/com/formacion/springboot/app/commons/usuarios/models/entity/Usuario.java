@@ -54,4 +54,5 @@ public class Usuario implements Serializable {
 	private List<Rol> roles;
 
 	private Integer intentos;
+
 }
