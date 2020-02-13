@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	AuthenticationEventPublisher autenticationEventPublisher;
+	private AuthenticationEventPublisher eventPublisher;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -25,7 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Personalizamos el userDetailsService y encriptamos la password con BCrypt
 		auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder())
 		// Registramos el evento de autenticación.
-			.and().authenticationEventPublisher(autenticationEventPublisher);
+		.and().authenticationEventPublisher(eventPublisher);
 
 	}
 

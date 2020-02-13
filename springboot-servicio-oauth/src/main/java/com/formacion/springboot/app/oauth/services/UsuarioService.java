@@ -22,37 +22,42 @@ import feign.FeignException;
 @Service
 public class UsuarioService implements UserDetailsService, IUsuarioService {
 
-	private Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+	private Logger log = LoggerFactory.getLogger(UsuarioService.class);
+
 	@Autowired
-	UsuarioFeignClient usuarioFeignClient;
+	private UsuarioFeignClient client;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		try {
-			Usuario usuario = usuarioFeignClient.findByUsername(username);
+			Usuario usuario = client.findByUsername(username);
+
 			List<GrantedAuthority> authorities = usuario.getRoles().stream()
-					.map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
-					.peek(authority -> log.info("Rol: " + authority.getAuthority())).collect(Collectors.toList());
-			
+					.map(role -> new SimpleGrantedAuthority(role.getNombre()))
+					.peek(authority -> log.info("Role: " + authority.getAuthority())).collect(Collectors.toList());
+
 			log.info("Usuario autenticado: " + username);
+
 			return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true,
 					authorities);
+
 		} catch (FeignException e) {
-			log.error("Error en el login, el usuario '" + username + "'no existe");
-			throw new UsernameNotFoundException("Error en el login, el usuario '" + username + "'no existe");
+			String error = "Error en el login, no existe el usuario '" + username + "' en el sistema";
+			log.error(error);
+
+			throw new UsernameNotFoundException(error);
 		}
+	}
+
+
+	@Override
+	public Usuario update(Usuario usuario, Long id) {
+		return client.update(usuario, id);
 	}
 
 	@Override
 	public Usuario findByUserName(String username) {
-
-		return usuarioFeignClient.findByUsername(username);
+		return client.findByUsername(username);
 	}
-
-	@Override
-	public Usuario update(Usuario usuario, Long id) {
-		return usuarioFeignClient.update(usuario, id);
-	}
-
 }
